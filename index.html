@@ -2,853 +2,215 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Offsets - Landen2rich</title>
+<title>Offsets</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
   body {
-    font-family: 'JetBrains Mono', 'Consolas', monospace;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    color: #ffffff;
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-    font-size: 14px;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      radial-gradient(circle at 20% 80%, rgba(0, 255, 100, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 0, 100, 0.06) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(100, 0, 255, 0.07) 0%, transparent 50%);
-    animation: float 15s ease-in-out infinite;
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.01) 50%, transparent 60%),
-      linear-gradient(-45deg, transparent 40%, rgba(255, 255, 255, 0.01) 50%, transparent 60%);
-    animation: scan 8s linear infinite;
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-20px) rotate(1deg); }
-    66% { transform: translateY(-12px) rotate(-1deg); }
-  }
-
-  @keyframes scan {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 30px 20px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .header {
-    text-align: center;
-    margin-bottom: 40px;
-    animation: slideInDown 0.8s ease-out;
-  }
-
-  .header h1 {
-    font-size: 2.4rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #ffffff, #00ff88, #ffffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 8px;
-    letter-spacing: -1px;
-    animation: glow 3s ease-in-out infinite alternate;
-  }
-
-  @keyframes glow {
-    from { filter: drop-shadow(0 0 5px rgba(0, 255, 136, 0.3)); }
-    to { filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.6)); }
-  }
-
-  .header p {
-    font-size: 0.95rem;
-    color: #999999;
-    font-weight: 400;
     font-family: monospace;
-    animation: typewriter 2s steps(30) 1s forwards;
-    overflow: hidden;
-    white-space: nowrap;
-    width: 0;
-    margin: 0 auto;
+    background: #1e1e1e;
+    color: #dcdcdc;
+    padding: 20px;
   }
-
-  @keyframes typewriter {
-    to { width: 100%; }
+  h2 {
+    margin-top: 0;
   }
-
-  .glass-card {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 18px;
-    padding: 28px;
-    margin-bottom: 28px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: slideInUp 0.8s ease-out;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .glass-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-    transition: left 0.6s ease;
-  }
-
-  .glass-card:hover::before {
-    left: 100%;
-  }
-
-  .glass-card:hover {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  .search-section h2 {
-    font-size: 1.4rem;
-    margin-bottom: 24px;
-    color: #ffffff;
-    font-weight: 600;
-    font-family: monospace;
-    position: relative;
-  }
-
-  .search-section h2::after {
-    content: '_';
-    animation: blink 1s infinite;
-  }
-
-  @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-  }
-
-  .input-group {
-    margin-bottom: 18px;
-  }
-
-  .input-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #cccccc;
-    font-weight: 500;
-    font-size: 0.9rem;
-    font-family: monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .input-field {
-    width: 100%;
-    padding: 14px 18px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    color: #ffffff;
-    font-size: 0.95rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(15px);
-    font-family: monospace;
-    position: relative;
-  }
-
-  .input-field:focus {
-    outline: none;
-    border-color: #00ff88;
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 255, 136, 0.2);
-    animation: pulse 0.3s ease;
-  }
-
-  @keyframes pulse {
-    0% { transform: translateY(-2px) scale(1); }
-    50% { transform: translateY(-2px) scale(1.02); }
-    100% { transform: translateY(-2px) scale(1); }
-  }
-
-  .input-field::placeholder {
-    color: #777777;
-    font-family: monospace;
-  }
-
-  .fetch-btn {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, #2a2a2a, #404040);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    color: #ffffff;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 12px;
-    font-family: monospace;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .fetch-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.3), transparent);
-    transition: left 0.5s ease;
-  }
-
-  .fetch-btn:hover::before {
-    left: 100%;
-  }
-
-  .fetch-btn:hover {
-    background: linear-gradient(135deg, #3a3a3a, #505050);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-    border-color: #00ff88;
-  }
-
-  .fetch-btn:active {
-    transform: translateY(-1px);
-    animation: buttonPress 0.1s ease;
-  }
-
-  @keyframes buttonPress {
-    0% { transform: translateY(-3px) scale(1); }
-    50% { transform: translateY(-1px) scale(0.98); }
-    100% { transform: translateY(-1px) scale(1); }
-  }
-
-  .result {
-    margin-top: 24px;
-    padding: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    font-family: monospace;
-    font-size: 0.95rem;
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    backdrop-filter: blur(15px);
-    animation: fadeIn 0.6s ease-out;
-    transition: all 0.3s ease;
-  }
-
-  .result:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  .offsets-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 12px;
-    max-height: 600px;
-    overflow-y: auto;
-    padding-right: 12px;
-  }
-
-  .offsets-grid::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .offsets-grid::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 3px;
-  }
-
-  .offsets-grid::-webkit-scrollbar-thumb {
-    background: rgba(0, 255, 136, 0.3);
-    border-radius: 3px;
-  }
-
-  .offsets-grid::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 255, 136, 0.5);
-  }
-
   .offset-line {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 14px 16px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(15px);
-    animation: slideInScale 0.6s ease-out;
-    position: relative;
-    overflow: hidden;
-    min-height: 80px;
+    margin: 6px 0;
+    cursor: default;
   }
-
-  .offset-line::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00ff88, transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-  }
-
-  .offset-line:hover::before {
-    transform: translateX(100%);
-  }
-
   .offset-line:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(0, 255, 136, 0.3);
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    background: #333;
   }
-
-  @keyframes slideInScale {
-    0% {
-      transform: translateY(20px) scale(0.9);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0) scale(1);
-      opacity: 1;
-    }
-  }
-
-  .offset-text {
-    font-family: monospace;
-    color: #ffffff;
-    font-size: 0.85rem;
-    margin-bottom: 8px;
-    line-height: 1.3;
-    word-break: break-all;
-  }
-
-  .copy-btn {
-    padding: 8px 14px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #ffffff;
+  #copyAllBtn {
+    margin-bottom: 20px;
+    background: #007acc;
+    border: none;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.9rem;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-family: monospace;
-    align-self: flex-start;
   }
-
-  .copy-btn:hover {
-    background: rgba(0, 255, 136, 0.2);
-    border-color: #00ff88;
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+  #result {
+    margin-top: 20px;
+    font-weight: bold;
   }
-
-  .copy-btn.copied {
-    background: rgba(0, 255, 136, 0.3);
-    color: #000000;
-    animation: copySuccess 0.3s ease;
-  }
-
-  @keyframes copySuccess {
-    0% { transform: scale(1.05); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1.05); }
-  }
-
   #overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(25px);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(30, 30, 30, 0.85);
+    backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
     visibility: hidden;
     opacity: 0;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.3s ease;
+    color: #00ff00;
+    font-size: 2rem;
+    text-align: center;
+    padding: 20px;
+    user-select: none;
   }
-
   #overlay.show {
     visibility: visible;
     opacity: 1;
   }
-
-  .overlay-content {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 24px;
-    padding: 50px;
-    text-align: center;
-    max-width: 90vw;
-    animation: scaleInBounce 0.5s ease-out;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .overlay-content::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #00ff88, #ff0088, #8800ff, #00ff88);
-    background-size: 400% 400%;
-    animation: gradientShift 3s ease infinite;
-    border-radius: 24px;
-    z-index: -1;
-  }
-
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  @keyframes scaleInBounce {
-    0% {
-      transform: scale(0.3);
-      opacity: 0;
-    }
-    50% {
-      transform: scale(1.05);
-      opacity: 0.8;
-    }
-    70% {
-      transform: scale(0.95);
-      opacity: 0.9;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  .overlay-text {
-    font-family: monospace;
-    font-size: 2rem;
-    color: #ffffff;
-    margin-bottom: 30px;
-    line-height: 1.4;
-    font-weight: 600;
-    animation: textGlow 2s ease-in-out infinite alternate;
-  }
-
-  @keyframes textGlow {
-    from { text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); }
-    to { text-shadow: 0 0 20px rgba(0, 255, 136, 0.8), 0 0 30px rgba(0, 255, 136, 0.3); }
-  }
-
-  .overlay-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-  }
-
-  .overlay-btn {
-    padding: 12px 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    color: #ffffff;
+  #overlay button {
+    margin-top: 20px;
+    font-size: 1rem;
+    padding: 8px 20px;
+    border-radius: 6px;
+    background: #007acc;
+    color: white;
+    border: none;
     cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    font-family: monospace;
-  }
-
-  .overlay-btn:hover {
-    background: rgba(0, 255, 136, 0.2);
-    border-color: #00ff88;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
-  }
-
-  .watermark {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 25px;
-    padding: 10px 20px;
-    font-size: 0.8rem;
-    color: #999999;
-    font-weight: 500;
-    z-index: 1000;
-    animation: fadeInFloat 2s ease-out;
-    font-family: monospace;
-    transition: all 0.3s ease;
-  }
-
-  .watermark:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(0, 255, 136, 0.3);
-    color: #ffffff;
-  }
-
-  @keyframes fadeInFloat {
-    0% {
-      transform: translateY(50px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideInDown {
-    0% {
-      transform: translateY(-50px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideInUp {
-    0% {
-      transform: translateY(50px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  .loading {
-    text-align: center;
-    color: #999999;
-    font-style: italic;
-    padding: 30px;
-    font-family: monospace;
-    animation: loadingPulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes loadingPulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-  }
-
-  @media (max-width: 768px) {
-    .container {
-      padding: 20px 15px;
-    }
-    
-    .header h1 {
-      font-size: 2rem;
-    }
-    
-    .glass-card {
-      padding: 24px;
-    }
-    
-    .overlay-content {
-      padding: 35px;
-    }
-    
-    .overlay-text {
-      font-size: 1.6rem;
-    }
-    
-    .overlay-buttons {
-      flex-direction: column;
-    }
-    
-    .offsets-grid {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-  }
-
-  @media (max-width: 480px) {
-    .offsets-grid {
-      grid-template-columns: 1fr;
-    }
+    user-select: none;
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>Offsets</h1>
-      <p>Discord.gg/landen2rich</p>
-    </div>
+<h2>Known Offsets</h2>
+<button id="copyAllBtn">Copy All</button>
+<div id="known-list">Loading known offsets...</div>
 
-    <div class="glass-card search-section">
-      <h2>Fetch Offset</h2>
-      <div class="input-group">
-        <label for="classInput">Class Name</label>
-        <input type="text" id="classInput" class="input-field" placeholder="e.g. UWorld" />
-      </div>
-      <div class="input-group">
-        <label for="propertyInput">Property Name</label>
-        <input type="text" id="propertyInput" class="input-field" placeholder="e.g. OwningGameInstance" />
-      </div>
-      <button id="fetchBtn" class="fetch-btn">Fetch Offset</button>
-      <div id="result" class="result">Enter class and property to fetch offset</div>
-    </div>
+<hr style="margin: 40px 0;" />
 
-    <div class="glass-card">
-      <h2>Known Offsets</h2>
-      <div id="known-list" class="offsets-grid loading">Loading known offsets...</div>
-    </div>
+<h2>Fetch Offset Manually</h2>
+<label for="classInput">Class:</label><br />
+<input type="text" id="classInput" placeholder="e.g. UWorld" /><br />
+<label for="propertyInput">Property:</label><br />
+<input type="text" id="propertyInput" placeholder="e.g. OwningGameInstance" /><br />
+<button id="fetchBtn">Fetch Offset</button>
+
+<div id="result">Result will appear here</div>
+
+<div id="overlay">
+  <div>
+    <div id="overlay-text"></div>
+    <button id="closeOverlay">Close</button>
   </div>
-
-  <div id="overlay">
-    <div class="overlay-content">
-      <div id="overlay-text" class="overlay-text"></div>
-      <div class="overlay-buttons">
-        <button id="copyOverlay" class="overlay-btn copy">Copy Offset</button>
-        <button id="closeOverlay" class="overlay-btn">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="watermark">
-    made by landen2rich | ai | thanks to vmp
-  </div>
+</div>
 
 <script>
-  const knownOffsets = [
-    { className: "vmp_Globals", property: "GWorld" },
-    { className: "vmp_Globals", property: "CameraLocation" },
-    { className: "vmp_Globals", property: "CameraRotation" },
-    { className: "UWorld", property: "OwningGameInstance" },
-    { className: "UWorld", property: "GameState" },
-    { className: "UWorld", property: "PersistentLevel" },
-    { className: "APlayerController", property: "AcknowledgedPawn" },
-    { className: "APlayerController", property: "PlayerCameraManager" },
-    { className: "APlayerController", property: "NetConnection" },
-    { className: "AFortPlayerStateAthena", property: "TeamIndex" },
-    { className: "APlayerState", property: "PawnPrivate" },
-    { className: "APlayerState", property: "PlayerNamePrivate" },
-    { className: "AActor", property: "RootComponent" },
-    { className: "AGameStateBase", property: "PlayerArray" },
-    { className: "AController", property: "PlayerState" },
-    { className: "UPlayer", property: "PlayerController" },
-    { className: "UGameInstance", property: "LocalPlayers" },
-    { className: "AFortPawn", property: "CurrentWeapon" },
-    { className: "AFortPawn", property: "bIsDBNO" },
-    { className: "AFortWeapon", property: "AmmoCount" },
-    { className: "AFortWeapon", property: "WeaponData" },
-    { className: "UCharacterMovementComponent", property: "MaxWalkSpeed" },
-    { className: "APlayerController", property: "AcknowledgedPawn" },
-    { className: "APlayerController", property: "PlayerCameraManager" },
-    { className: "UWorld", property: "NetDriver" },
-    { className: "APawn", property: "PlayerState" },
-    { className: "USceneComponent", property: "RelativeLocation" },
-    { className: "ACharacter", property: "Mesh" },
-  ];
+const knownOffsets = [
+  { className: "vmp_Globals", property: "GWorld" },
+  { className: "vmp_Globals", property: "CameraLocation" },
+  { className: "vmp_Globals", property: "CameraRotation" },
+  { className: "UWorld", property: "OwningGameInstance" },
+  { className: "UWorld", property: "GameState" },
+  { className: "UWorld", property: "PersistentLevel" },
+  { className: "APlayerController", property: "AcknowledgedPawn" },
+  { className: "APlayerController", property: "PlayerCameraManager" },
+  { className: "APlayerController", property: "NetConnection" },
+  { className: "AFortPlayerStateAthena", property: "TeamIndex" },
+  { className: "APlayerState", property: "PawnPrivate" },
+  { className: "APlayerState", property: "PlayerNamePrivate" },
+  { className: "AActor", property: "RootComponent" },
+  { className: "AGameStateBase", property: "PlayerArray" },
+  { className: "AController", property: "PlayerState" },
+  { className: "UPlayer", property: "PlayerController" },
+  { className: "UGameInstance", property: "LocalPlayers" },
+  { className: "AFortPawn", property: "CurrentWeapon" },
+  { className: "AFortPawn", property: "bIsDBNO" }, 
+  { className: "AFortWeapon", property: "AmmoCount" },
+  { className: "AFortWeapon", property: "WeaponData" },
+  { className: "UCharacterMovementComponent", property: "MaxWalkSpeed" },
+  { className: "APlayerController", property: "AcknowledgedPawn" },
+  { className: "APlayerController", property: "PlayerCameraManager" },
+  { className: "UWorld", property: "NetDriver" },
+  { className: "APawn", property: "PlayerState" },
+  { className: "USceneComponent", property: "RelativeLocation" },
+  { className: "ACharacter", property: "Mesh" },
+  { className: "AFortPlayerController", property: "AdditionalAimOffset" },
+   { className: "AFortPlayerController", property: "PlayerAimOffset" },
+];
 
-  const knownList = document.getElementById("known-list");
-  const resultDiv = document.getElementById("result");
-  const overlay = document.getElementById("overlay");
-  const overlayText = document.getElementById("overlay-text");
-  const closeOverlayBtn = document.getElementById("closeOverlay");
-  const copyOverlayBtn = document.getElementById("copyOverlay");
+const knownList = document.getElementById("known-list");
+const resultDiv = document.getElementById("result");
+const overlay = document.getElementById("overlay");
+const overlayText = document.getElementById("overlay-text");
+const closeOverlayBtn = document.getElementById("closeOverlay");
+const copyAllBtn = document.getElementById("copyAllBtn");
 
-  let currentOffset = null;
-  const proxyBaseURL = "https://site--backendoffsets--dfvrfmsxzt28.code.run";  // Change this on deploy
+let knownLines = []; 
 
-  async function fetchOffset(className, propertyName) {
-    try {
-      const url = `${proxyBaseURL}/class?class=${encodeURIComponent(className)}&properties=${encodeURIComponent(propertyName)}`;
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Network response not ok");
-      const data = await response.json();
-      return data[propertyName] || null;
-    } catch (e) {
-      console.error("Fetch error:", e);
-      return null;
-    }
+async function fetchOffset(className, propertyName) {
+  try {
+    const url = `http://localhost:3000/class?class=${encodeURIComponent(className)}&properties=${encodeURIComponent(propertyName)}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Network response not ok");
+    const data = await response.json();
+    return data[propertyName] || null;
+  } catch (e) {
+    console.error("Fetch error:", e);
+    return null;
+  }
+}
+
+function createOffsetLine(className, property, offset) {
+  const line = document.createElement("div");
+  line.className = "offset-line";
+
+  const displayOffset = offset !== null ? `0x${offset.toString(16)}` : "Not found";
+  const textContent = `${className}::${property} = ${displayOffset}`;
+
+  line.textContent = textContent;
+  knownLines.push(textContent);
+
+  return line;
+}
+
+async function displayKnownOffsets() {
+  knownList.innerHTML = "";
+  knownLines = [];
+
+  for (const { className, property } of knownOffsets) {
+    const offset = await fetchOffset(className, property);
+    const line = createOffsetLine(className, property, offset);
+    knownList.appendChild(line);
+  }
+}
+
+document.getElementById("fetchBtn").addEventListener("click", async () => {
+  const className = document.getElementById("classInput").value.trim();
+  const propertyName = document.getElementById("propertyInput").value.trim();
+
+  if (!className || !propertyName) {
+    resultDiv.textContent = "Please enter both class and property names.";
+    return;
   }
 
-  function copyToClipboard(text, button) {
-    navigator.clipboard.writeText(text).then(() => {
-      const originalText = button.textContent;
-      button.textContent = "Copied!";
-      button.classList.add("copied");
-      setTimeout(() => {
-        button.textContent = originalText;
-        button.classList.remove("copied");
-      }, 2000);
-    }).catch(() => {
-      button.textContent = "Failed";
-      setTimeout(() => button.textContent = "Copy", 2000);
+  resultDiv.textContent = "Fetching...";
+  const offset = await fetchOffset(className, propertyName);
+  if (offset !== null) {
+    const offsetHex = `0x${offset.toString(16)}`;
+    resultDiv.textContent = `${className}::${propertyName} = ${offsetHex}`;
+
+    overlayText.textContent = `${className}::${propertyName}\n${offsetHex}`;
+    overlay.classList.add("show");
+  } else {
+    resultDiv.textContent = `Offset not found for ${className}::${propertyName}`;
+  }
+});
+
+closeOverlayBtn.addEventListener("click", () => overlay.classList.remove("show"));
+overlay.addEventListener("click", e => { if (e.target === overlay) overlay.classList.remove("show"); });
+
+copyAllBtn.addEventListener("click", () => {
+  const fullText = knownLines.join("\n");
+  navigator.clipboard.writeText(fullText)
+    .then(() => {
+      copyAllBtn.textContent = "Copied All!";
+      setTimeout(() => copyAllBtn.textContent = "Copy All", 1000);
+    })
+    .catch(() => {
+      copyAllBtn.textContent = "Failed";
+      setTimeout(() => copyAllBtn.textContent = "Copy All", 1000);
     });
-  }
+});
 
-  function createOffsetLine(className, property, offset) {
-    const line = document.createElement("div");
-    line.className = "offset-line";
-
-    const displayOffset = offset !== null ? `0x${offset.toString(16)}` : "Not found";
-
-    const textSpan = document.createElement("span");
-    textSpan.className = "offset-text";
-    textSpan.textContent = `${className}::${property} = ${displayOffset}`;
-
-    const copyBtn = document.createElement("button");
-    copyBtn.className = "copy-btn";
-    copyBtn.textContent = "Copy";
-
-    copyBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (offset !== null) {
-        copyToClipboard(displayOffset, copyBtn);
-      }
-    });
-
-    line.appendChild(textSpan);
-    line.appendChild(copyBtn);
-
-    return line;
-  }
-
-  async function displayKnownOffsets() {
-    knownList.innerHTML = '<div class="loading">Loading known offsets...</div>';
-    const fragment = document.createDocumentFragment();
-
-    for (let i = 0; i < knownOffsets.length; i++) {
-      const { className, property } = knownOffsets[i];
-      const offset = await fetchOffset(className, property);
-      const line = createOffsetLine(className, property, offset);
-      line.style.animationDelay = `${i * 0.1}s`;
-      fragment.appendChild(line);
-    }
-
-    knownList.innerHTML = '';
-    knownList.appendChild(fragment);
-  }
-
-  document.getElementById("fetchBtn").addEventListener("click", async () => {
-    const className = document.getElementById("classInput").value.trim();
-    const propertyName = document.getElementById("propertyInput").value.trim();
-
-    if (!className || !propertyName) {
-      resultDiv.textContent = "Please enter both class and property names.";
-      resultDiv.style.color = "#ffffff";
-      return;
-    }
-
-    resultDiv.textContent = "Fetching...";
-    resultDiv.style.color = "#ffffff";
-
-    const offset = await fetchOffset(className, propertyName);
-    if (offset !== null) {
-      const offsetHex = `0x${offset.toString(16)}`;
-      resultDiv.innerHTML = `✅ ${className}::${propertyName} = ${offsetHex}`;
-      resultDiv.style.color = "#ffffff";
-
-      currentOffset = offsetHex;
-      overlayText.textContent = `${className}::${propertyName}\n${offsetHex}`;
-      overlay.classList.add("show");
-    } else {
-      resultDiv.innerHTML = `❌ Offset not found for ${className}::${propertyName}`;
-      resultDiv.style.color = "#ffffff";
-    }
-  });
-
-  copyOverlayBtn.addEventListener("click", () => {
-    if (currentOffset) {
-      copyToClipboard(currentOffset, copyOverlayBtn);
-    }
-  });
-
-  closeOverlayBtn.addEventListener("click", () => {
-    overlay.classList.remove("show");
-  });
-
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) {
-      overlay.classList.remove("show");
-    }
-  });
-
-  document.getElementById("propertyInput").addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      document.getElementById("fetchBtn").click();
-    }
-  });
-
-  // Load known offsets on page load
-  displayKnownOffsets();
+displayKnownOffsets();
 </script>
+</body>
+</html>
