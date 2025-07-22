@@ -3,7 +3,6 @@ import fetch from "node-fetch";
 import cors from "cors";
 
 const app = express();
-const port = 3000;
 
 app.use(cors());
 
@@ -57,6 +56,7 @@ app.get("/class", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Proxy server ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Backend listening on port ${PORT}`);
 });
